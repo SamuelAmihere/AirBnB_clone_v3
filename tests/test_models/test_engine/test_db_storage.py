@@ -70,28 +70,6 @@ test_db_storage.py'])
 @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
 class TestDBStorage(unittest.TestCase):
     """Test the FileStorage class"""
-    @classmethod
-    def setUpClass(cls):
-        """Test sets up"""
-        storage.delete_all()
-        cls.st = State(name="Alabama")
-        cls.cty = City(state_id=cls.s.id,
-                     name="San Francisco")
-        cls.user = User(email="sam@alx.com",
-                     password="pass")
-        cls.p1 = Place(user_id=cls.user.id,
-                       city_id=cls.cty.id,
-                       name="a house")
-        cls.p2 = Place(user_id=cls.user.id,
-                       city_id=cls.cty.id,
-                       name="a house two")
-        cls.a1 = Amenity(name="Wifi")
-        cls.a2 = Amenity(name="Cable")
-        cls.a3 = Amenity(name="Bucket Shower")
-        objs = [cls.st, cls.cty, cls.user, cls.p1, cls.p2, cls.a1, cls.a2, cls.a3]
-        for obj in objs:
-            obj.save()    
-
     def test_all_returns_dict(self):
         """Test that all returns a dictionaty"""
         self.assertIs(type(models.storage.all()), dict)
