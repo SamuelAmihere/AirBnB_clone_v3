@@ -88,6 +88,7 @@ class TestDBStorage(unittest.TestCase):
         """testing for get on object of a returned class by id"""
         storage = models.storage
         s = State(name='Alabama')
+
         s.save()
         self.assertIsNone(storage.get(int, s.id))
         self.assertIsNone(storage.get(State, s.id + 'op'))
@@ -124,3 +125,14 @@ class TestDBStorage(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             storage.count(State, 'op')
+
+    def test_all_reload_save(self):
+        """... checks if all(), save(), and reload function
+        in new instance.  This also tests for reload"""
+        actual = 0
+        db_objs = storage.all()
+        for obj in db_objs.values():
+            for x in [self.s.id, self.c.id, self.u.id, self.p1.id]:
+                if x == obj.id:
+                    actual += 1
+        self.assertGreater(actual, 0)
