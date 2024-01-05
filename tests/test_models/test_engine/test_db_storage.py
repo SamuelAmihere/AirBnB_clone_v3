@@ -71,6 +71,31 @@ test_db_storage.py'])
 @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
 class TestDBStorage(unittest.TestCase):
     """Test the FileStorage class"""
+    @classmethod
+    def setUpClass(cls):
+        """sets up the class for this round of tests"""
+        print('\n\n....................................')
+        print('.......... Testing DBStorage .......')
+        print('. State, City, User, Place Amenity .')
+        print('....................................')
+        storage.delete_all()
+        cls.s = State(name="California")
+        cls.c = City(state_id=cls.s.id,
+                     name="San Francisco")
+        cls.u = User(email="betty@holbertonschool.com",
+                     password="pwd")
+        cls.p1 = Place(user_id=cls.u.id,
+                       city_id=cls.c.id,
+                       name="a house")
+        cls.p2 = Place(user_id=cls.u.id,
+                       city_id=cls.c.id,
+                       name="a house two")
+        cls.a1 = Amenity(name="Wifi")
+        cls.a2 = Amenity(name="Cable")
+        cls.a3 = Amenity(name="Bucket Shower")
+        objs = [cls.s, cls.c, cls.u, cls.p1, cls.p2, cls.a1, cls.a2, cls.a3]
+        for obj in objs:
+            obj.save()
     def test_all_returns_dict(self):
         """Test that all returns a dictionaty"""
         self.assertIs(type(models.storage.all()), dict)
@@ -83,3 +108,4 @@ class TestDBStorage(unittest.TestCase):
 
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+
