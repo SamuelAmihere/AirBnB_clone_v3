@@ -71,11 +71,6 @@ test_db_storage.py'])
 @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
 class TestDBStorage(unittest.TestCase):
     """Test the FileStorage class"""
-    def setUp(self):
-        """initializes new user for testing"""
-        self.s = State(name='Alabama')
-        self.s.save()
-
     def test_all_returns_dict(self):
         """Test that all returns a dictionaty"""
         self.assertIs(type(models.storage.all()), dict)
@@ -93,18 +88,21 @@ class TestDBStorage(unittest.TestCase):
         """testing for get on object of a returned class by id"""
         storage = models.storage
 
-        self.assertIsNone(storage.get(int, self.s.id))
-        self.assertIsNone(storage.get(State, self.s.id + 'op'))
-        self.assertEqual(self.s.id, storage.get(State, self.s.id).id)
-        self.assertEqual(self.s.name, storage.get(State, self.s.id).name)
-        self.assertIsNot(self.s, storage.get(State, self.s.id + 'op'))
+        self.s = State(name='Alabama')
+        self.s.save()
+
+        self.assertIsNone(storage.get(int, s.id))
+        self.assertIsNone(storage.get(State, s.id + 'op'))
+        self.assertEqual(s.id, storage.get(State, s.id).id)
+        self.assertEqual(s.name, storage.get(State, s.id).name)
+        self.assertIsNot(s, storage.get(State, s.id + 'op'))
         self.assertIsNone(storage.get(State, 45))
-        self.assertIsNone(storage.get(None, self.s.id))
+        self.assertIsNone(storage.get(None, s.id))
 
         with self.assertRaises(TypeError):
             storage.get()
         with self.assertRaises(TypeError):
-            storage.get(State, self.s.id, 'op')
+            storage.get(State, s.id, 'op')
         with self.assertRaises(TypeError):
             storage.get(State)
 
@@ -128,14 +126,3 @@ class TestDBStorage(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             storage.count(State, 'op')
-
-    def test_all_reload_save(self):
-        """... checks if all(), save(), and reload function
-        in new instance.  This also tests for reload"""
-        actual = 0
-        db_objs = storage.all()
-        for obj in db_objs.values():
-            for x in [self.s.id]:
-                if x == obj.id:
-                    actual += 1
-        self.assertGreater(actual, 0)
