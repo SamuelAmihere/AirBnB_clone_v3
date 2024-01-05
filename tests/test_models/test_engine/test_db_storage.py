@@ -97,6 +97,7 @@ class TestDBStorage(unittest.TestCase):
 
     def test_all_no_class(self):
         """Test that all returns all rows when no class is passed"""
+        pass
 
     def test_count(self):
         """test that count returns the number of objects of a given class."""
@@ -121,9 +122,11 @@ class TestDBStorage(unittest.TestCase):
 
     def test_new(self):
         """test that new adds an object to the database"""
+        pass
 
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+        pass
 
 
 class TestFileStorage(unittest.TestCase):
