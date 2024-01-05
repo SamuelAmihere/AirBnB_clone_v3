@@ -100,7 +100,7 @@ class TestDBStorage(unittest.TestCase):
         with self.assertRaises(TypeError):
             storage.get()
         with self.assertRaises(TypeError):
-            storage.get(State, obj.id, 'op')
+            storage.get(State, s.id, 'op')
         with self.assertRaises(TypeError):
             storage.get(State)
 
