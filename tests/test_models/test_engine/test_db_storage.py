@@ -85,23 +85,24 @@ class TestDBStorage(unittest.TestCase):
         """Test that save properly saves objects to file.json"""
 
     def test_get(self):
-        """testing for get on object of a returned class by id."""
+        """testing for get on object of a returned class by id"""
         storage = models.storage
-        obj = State(name='Michigan')
-        obj.save()
-        self.assertEqual(obj.id, storage.get(State, obj.id).id)
-        self.assertEqual(obj.name, storage.get(State, obj.id).name)
-        self.assertIsNot(obj, storage.get(State, obj.id + 'op'))
-        self.assertIsNone(storage.get(State, obj.id + 'op'))
+        s = State(name='Alabama')
+        s.save()
+        self.assertIsNone(storage.get(int, s.id))
+        self.assertIsNone(storage.get(State, s.id + 'op'))
+        self.assertEqual(s.id, storage.get(State, s.id).id)
+        self.assertEqual(s.name, storage.get(State, s.id).name)
+        self.assertIsNot(s, storage.get(State, s.id + 'op'))
         self.assertIsNone(storage.get(State, 45))
-        self.assertIsNone(storage.get(None, obj.id))
-        self.assertIsNone(storage.get(int, obj.id))
+        self.assertIsNone(storage.get(None, s.id))
+
+        with self.assertRaises(TypeError):
+            storage.get()
         with self.assertRaises(TypeError):
             storage.get(State, obj.id, 'op')
         with self.assertRaises(TypeError):
             storage.get(State)
-        with self.assertRaises(TypeError):
-            storage.get()
 
     def test_count(self):
         """test that count returns the number of objects of a given class."""
