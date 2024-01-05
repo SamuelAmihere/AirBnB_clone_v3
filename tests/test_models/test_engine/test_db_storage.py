@@ -70,63 +70,6 @@ test_db_storage.py'])
 
 class TestDBStorage(unittest.TestCase):
     """Test the FileStorage class"""
-    def test_get(self):
-        """testing for get on object of a returned class by id."""
-        storage = models.storage
-        obj = State(name='Michigan')
-        obj.save()
-        self.assertIsNone(storage.get(None, obj.id))
-        self.assertIsNone(storage.get(int, obj.id))
-        self.assertIsNot(obj, storage.get(State, obj.id + 'op'))
-        self.assertIsNone(storage.get(State, obj.id + 'op'))
-        self.assertIsNone(storage.get(State, 45))
-        self.assertEqual(obj.id, storage.get(State, obj.id).id)
-        self.assertEqual(obj.name, storage.get(State, obj.id).name)
-
-        with self.assertRaises(TypeError):
-            storage.get(State, obj.id, 'op')0
-        with self.assertRaises(TypeError):
-            storage.get()
-        with self.assertRaises(TypeError):
-            storage.get(State)
-
-    def test_all_returns_dict(self):
-        """Test that all returns a dictionaty"""
-        self.assertIs(type(models.storage.all()), dict)
-
-    def test_all_no_class(self):
-        """Test that all returns all rows when no class is passed"""
-
-    def test_count(self):
-        """test that count returns the number of objects of a given class."""
-        storage = models.storage
-        self.assertIs(type(storage.count(State)), int)
-        self.assertIs(type(storage.count(None)), int)
-        self.assertIs(type(storage.count()), int)
-        self.assertEqual(storage.count(), storage.count(None))
-        self.assertIs(type(storage.count(int)), int)
-        self.assertEqual(storage.count(), storage.count(None))
-        State(name='Lagos').save()
-        self.assertGreater(storage.count(State), 0)
-        cn = storage.count(State)
-        State(name='Kasablanca').save()
-        self.assertGreater(storage.count(State), cn)
-        Amenity(name='Fast WiFi').save()
-        Amenity(name='Free AC').save()
-        self.assertGreater(storage.count(), storage.count(State))
-
-        with self.assertRaises(TypeError):
-            storage.count(State, 'op')
-
-    def test_new(self):
-        """test that new adds an object to the database"""
-
-    def test_save(self):
-        """Test that save properly saves objects to file.json"""
-
-
-class TestFileStorage(unittest.TestCase):
-    """Test the FileStorage class"""
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_all_returns_dict(self):
         """Test that all returns a dictionaty"""
