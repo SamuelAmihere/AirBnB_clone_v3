@@ -23,6 +23,7 @@ classes = {"Amenity": Amenity, "City": City, "Place": Place,
            "Review": Review, "State": State, "User": User}
 store_t = models.storage_t
 
+
 class TestDBStorageDocs(unittest.TestCase):
     """Tests to check the documentation and style of DBStorage class"""
     @classmethod
@@ -68,7 +69,6 @@ test_db_storage.py'])
                             "{:s} method needs a docstring".format(func[0]))
 
 
-
 @unittest.skipIf(store_t != 'db', "testing is not for db storage")
 class TestDBStorage(unittest.TestCase):
     """Test the FileStorage class"""
@@ -84,13 +84,13 @@ class TestDBStorage(unittest.TestCase):
         self.assertIsNone(storage.get(State, 45))
         self.assertEqual(obj.id, storage.get(State, obj.id).id)
         self.assertEqual(obj.name, storage.get(State, obj.id).name)
+
         with self.assertRaises(TypeError):
             storage.get(State, obj.id, 'op')0
         with self.assertRaises(TypeError):
             storage.get()
         with self.assertRaises(TypeError):
             storage.get(State)
-
 
     def test_all_returns_dict(self):
         """Test that all returns a dictionaty"""
@@ -116,7 +116,7 @@ class TestDBStorage(unittest.TestCase):
         Amenity(name='Fast WiFi').save()
         Amenity(name='Free AC').save()
         self.assertGreater(storage.count(), storage.count(State))
-        
+
         with self.assertRaises(TypeError):
             storage.count(State, 'op')
 
