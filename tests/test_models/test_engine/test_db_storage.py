@@ -21,7 +21,6 @@ import unittest
 DBStorage = db_storage.DBStorage
 classes = {"Amenity": Amenity, "City": City, "Place": Place,
            "Review": Review, "State": State, "User": User}
-store_t = models.storage_t
 
 
 class TestDBStorageDocs(unittest.TestCase):
@@ -69,7 +68,7 @@ test_db_storage.py'])
                             "{:s} method needs a docstring".format(func[0]))
 
 
-@unittest.skipIf(store_t != 'db', "testing is not for db storage")
+@unittest.skipIf(models.storage_t != 'db', "testing is not for db storage")
 class TestDBStorage(unittest.TestCase):
     """Test the FileStorage class"""
     def test_get(self):
