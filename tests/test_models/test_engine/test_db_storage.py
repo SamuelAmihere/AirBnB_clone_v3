@@ -74,7 +74,6 @@ class TestDBStorage(unittest.TestCase):
     def setUp(self):
         """initializes new user for testing"""
         self.s = State(name='Alabama')
-
         self.s.save()
 
     def test_all_returns_dict(self):
