@@ -68,30 +68,26 @@ test_db_storage.py'])
                             "{:s} method needs a docstring".format(func[0]))
 
 
+@unittest.skipIf(models.storage_t != 'db', "not testing db storage")
 class TestDBStorage(unittest.TestCase):
     """Test the FileStorage class"""
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_all_returns_dict(self):
         """Test that all returns a dictionaty"""
         self.assertIs(type(models.storage.all()), dict)
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_all_no_class(self):
         """Test that all returns all rows when no class is passed"""
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_new(self):
         """test that new adds an object to the database"""
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_get(self):
         """test that get returns an object of a given class by id."""
         storage = models.storage
-        obj = State(name='Michigan')
+        obj = State(name='Alabama')
         obj.save()
         self.assertEqual(obj.id, storage.get(State, obj.id).id)
         self.assertEqual(obj.name, storage.get(State, obj.id).name)
@@ -107,7 +103,6 @@ class TestDBStorage(unittest.TestCase):
         with self.assertRaises(TypeError):
             storage.get()
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_count(self):
         """test that count returns the number of objects of a given class."""
         storage = models.storage
