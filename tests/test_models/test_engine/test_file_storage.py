@@ -118,18 +118,22 @@ class TestFileStorage(unittest.TestCase):
     def test_get(self):
         """test that get returns an object of a given class by id."""
         storage = models.storage
-        obj = State(name='Michigan')
-        obj.save()
-        self.assertEqual(obj.id, storage.get(State, obj.id).id)
-        self.assertEqual(obj.name, storage.get(State, obj.id).name)
-        self.assertIsNot(obj, storage.get(State, obj.id + 'op'))
-        self.assertIsNone(storage.get(State, obj.id + 'op'))
+        
+        s = State(name='Alabama')
+        
+        s.save()
+        
+        self.assertEqual(s.id, storage.get(State, s.id).id)
         self.assertIsNone(storage.get(State, 45))
-        self.assertIsNone(storage.get(None, obj.id))
-        self.assertIsNone(storage.get(int, obj.id))
-        with self.assertRaises(TypeError):
-            storage.get(State, obj.id, 'op')
-        with self.assertRaises(TypeError):
-            storage.get(State)
+        self.assertEqual(s.name, storage.get(State, s.id).name)
+        self.assertIsNot(s, storage.get(State, s.id + 'ssa'))
+        self.assertIsNone(storage.get(State, s.id + 'aas'))
+        self.assertIsNone(storage.get(None, s.id))
+        self.assertIsNone(storage.get(int, s.id))
         with self.assertRaises(TypeError):
             storage.get()
+        with self.assertRaises(TypeError):
+            storage.get(State, s.id, 'op')
+        with self.assertRaises(TypeError):
+            storage.get(State)
+
