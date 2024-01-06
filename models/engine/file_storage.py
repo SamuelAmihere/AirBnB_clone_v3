@@ -67,9 +67,7 @@ class FileStorage:
         if cls is not None:
             data = list(
                 filter(lambda x: type(x) is cls and x.id == id,
-                      self.__objects.values()
-                )
-            )
+                       self.__objects.values()))
             if data:
                 return data[0]
         return None
