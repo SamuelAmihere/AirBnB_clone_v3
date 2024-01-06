@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-Contains the class DBStorage
-"""
+"""Contains the class DBStorage"""
 
 import models
 from models.amenity import Amenity
@@ -71,7 +69,12 @@ class DBStorage:
         Session = scoped_session(sess_factory)
         self.__session = Session
 
-
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
+
+    def count(self, cls=None):
+        """
+        Returns the number of objects of a class
+        """
+        return len(self.all(cls))

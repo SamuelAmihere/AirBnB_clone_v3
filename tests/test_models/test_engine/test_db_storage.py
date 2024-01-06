@@ -83,3 +83,49 @@ class TestDBStorage(unittest.TestCase):
 
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+
+    def test_get(self):
+        """
+        testing for get on object of a returned class by id
+        """
+        storage = models.storage
+        s = State(name='Alabama')
+        s.save()
+
+        self.assertIsNone(storage.get(int, s.id))
+        self.assertEqual(s.id, storage.get(State, s.id).id)
+        self.assertEqual(s.name, storage.get(State, s.id).name)
+        self.assertIsNot(s, storage.get(State, s.id + 'op'))
+        self.assertIsNone(storage.get(State, s.id + 'op'))
+        self.assertIsNone(storage.get(State, 45))
+        self.assertIsNone(storage.get(None, s.id))
+
+        with self.assertRaises(TypeError):
+            storage.get()
+        with self.assertRaises(TypeError):
+            storage.get(State, s.id, 'op')
+        with self.assertRaises(TypeError):
+            storage.get(State)
+
+    def test_count(self):
+        """
+        test that count returns the number of objects of a given class.
+        """
+        storage = models.storage
+        self.assertIs(type(storage.count(State)), int)
+        self.assertIs(type(storage.count(None)), int)
+        self.assertIs(type(storage.count()), int)
+        self.assertEqual(storage.count(), storage.count(None))
+        self.assertIs(type(storage.count(int)), int)
+        self.assertEqual(storage.count(), storage.count(None))
+        State(name='Lagos').save()
+        self.assertGreater(storage.count(State), 0)
+        cn = storage.count(State)
+        State(name='Kasablanca').save()
+        self.assertGreater(storage.count(State), cn)
+        Amenity(name='Fast WiFi').save()
+        Amenity(name='Free AC').save()
+        self.assertGreater(storage.count(), storage.count(State))
+
+        with self.assertRaises(TypeError):
+            storage.count(State, 'op')
