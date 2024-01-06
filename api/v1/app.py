@@ -33,8 +33,10 @@ CORS(app, resources={'/*': {'origins': "*"}})
 @app.errorhandler(404)
 def handle_404(e):
     """andles 404 errors"""
-    message = e.description if isinstance(e, Exception) and \
-            hasattr(e, 'description') else 'Bad request'
+    m1 = e.description
+    m2 = 'Bad request'
+    message = m1 if isinstance(e, Exception) and hasattr(e, 'description') \
+        else m2
     return jsonify(error=msg), 400
 
 
