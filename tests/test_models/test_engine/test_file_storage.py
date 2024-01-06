@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Contains the TestFileStorageDocs classes"""
+"""
+Contains the TestFileStorageDocs classes
+"""
 
 from datetime import datetime
 import inspect
@@ -114,9 +116,7 @@ class TestFileStorage(unittest.TestCase):
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_count(self):
-        """
-        A test for count of a given class.
-        """
+        """ A test for count of a given class."""
         storage = models.storage
 
         self.assertIs(type(storage.count(int)), int)
@@ -145,9 +145,7 @@ class TestFileStorage(unittest.TestCase):
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_get(self):
-        """
-        A test for get of a given class by id
-        """
+        """ A test for get of a given class by id"""
         storage = models.storage
 
         s = State(name='Alabama')
