@@ -131,7 +131,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertIsNone(storage.get(None, s.id))
 
         with self.assertRaises(TypeError):
-            storage.get(State, s.id, 'op')
+            storage.get(State, s.id, 'st')
         with self.assertRaises(TypeError):
             storage.get(State)
         with self.assertRaises(TypeError):
