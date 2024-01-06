@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """For a Flask web application api
 """
-from api.v1.views import app_views
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 from flask import Flask, jsonify, make_response, render_template
 from werkzeug.exceptions import HTTPException
 import os
 from models import storage
+from api.v1.views import app_views
 
 
 app = Flask(__name__)
@@ -19,14 +19,15 @@ default_port = '5000'
 host = os.getenv(var_host, default_host)
 port = int(os.getenv(var_port, default_port))
 
-# BluePrint of app_views defined in api/v1/views
-app.register_blueprint(app_views)
-
 # set global strict slashes
 app.url_map.strict_slashes = False
 
+# BluePrint of app_views defined in api/v1/views
+app.register_blueprint(app_views)
+
+
 # Ensuring cross-origin resource sharing among components
-CORS(app, resources={'/*': {'origins': "*"}})
+CORS(app, resources={'/*': {'origins': host}})
 
 
 # page rendering
