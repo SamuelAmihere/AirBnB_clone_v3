@@ -87,15 +87,14 @@ class TestDBStorage(unittest.TestCase):
     def test_get(self):
         """testing for get on object of a returned class by id"""
         storage = models.storage
-
-        self.s = State(name='Alabama')
-        self.s.save()
+        s = State(name='Alabama')
+        s.save()
 
         self.assertIsNone(storage.get(int, s.id))
-        self.assertIsNone(storage.get(State, s.id + 'op'))
         self.assertEqual(s.id, storage.get(State, s.id).id)
         self.assertEqual(s.name, storage.get(State, s.id).name)
         self.assertIsNot(s, storage.get(State, s.id + 'op'))
+        self.assertIsNone(storage.get(State, s.id + 'op'))
         self.assertIsNone(storage.get(State, 45))
         self.assertIsNone(storage.get(None, s.id))
 
