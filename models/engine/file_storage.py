@@ -68,7 +68,8 @@ class FileStorage:
             res = list(
                 filter(lambda x: type(x) is cls and x.id == id,
                     self.__objects.values()
-                ))
+                )
+            )
             if res:
                 return res[0]
         return None
