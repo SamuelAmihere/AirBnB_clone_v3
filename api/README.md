@@ -1,6 +1,15 @@
 # API
+## Environment Requirement
+* __OS:__ Ubuntu 14.04 LTS
+* __language:__ Python 3.4.3
+* __application server:__ Flask 0.12.2, Jinja2 2.9.6
+* __web server gateway:__ gunicorn (version 19.7.1)
+* __database:__ mysql Ver 14.14 Distrib 5.7.18
+* __documentation:__ Swagger (flasgger==0.6.6)
+* __Style:__
+  * __python:__ PEP 8 (v. 1.7.0)
 
-## Letss Test the API
+## Let's Test the API
 
 * Execute program:
 
@@ -26,5 +35,19 @@ Check content type:
 ```
 $ curl -X GET -s http://0.0.0.0:5000/api/v1/status -vvv 2>&1 | grep Content-Type
 < Content-Type: application/json
+$ 
+```
+
+Let's check some stats about objects in the database
+```
+$ curl -X GET http://0.0.0.0:5000/api/v1/stats
+{
+  "amenities": 47, 
+  "cities": 36, 
+  "places": 154, 
+  "reviews": 718, 
+  "states": 27, 
+  "users": 31
+}
 $ 
 ```
