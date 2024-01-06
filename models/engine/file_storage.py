@@ -58,19 +58,6 @@ class FileStorage:
         except Exception:
             pass
 
-    def count(self, cls=None):
-        """Returns the number of objects of a class"""
-        return len(self.all(cls))
-
-    def get(self, cls, id):
-        """gets an object of a class using its id"""
-        if cls is not None:
-            data = list(
-                filter(lambda x: type(x) is cls and x.id == id,
-                       self.__objects.values()))
-            if data:
-                return data[0]
-        return None
 
     def delete(self, obj=None):
         """delete obj from __objects if it’s inside"""
