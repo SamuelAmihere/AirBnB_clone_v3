@@ -120,20 +120,19 @@ class TestFileStorage(unittest.TestCase):
         storage = models.storage
 
         s = State(name='Alabama')
-
         s.save()
 
-        self.assertEqual(s.id, storage.get(State, s.id).id)
         self.assertIsNone(storage.get(State, 45))
-        self.assertEqual(s.name, storage.get(State, s.id).name)
-        self.assertIsNot(s, storage.get(State, s.id + 'op'))
-        self.assertIsNone(storage.get(State, s.id + 'op'))
-        self.assertIsNone(storage.get(None, s.id))
         self.assertIsNone(storage.get(int, s.id))
-        with self.assertRaises(TypeError):
-            storage.get()
+        self.assertEqual(s.id, storage.get(State, s.id).id)
+        self.assertEqual(s.name, storage.get(State, s.id).name)
+        self.assertIsNot(s, storage.get(State, s.id + 'st'))
+        self.assertIsNone(storage.get(State, s.id + 'st'))
+        self.assertIsNone(storage.get(None, s.id))
+
         with self.assertRaises(TypeError):
             storage.get(State, s.id, 'op')
         with self.assertRaises(TypeError):
             storage.get(State)
-
+        with self.assertRaises(TypeError):
+            storage.get()
