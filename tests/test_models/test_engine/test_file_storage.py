@@ -126,8 +126,8 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(s.id, storage.get(State, s.id).id)
         self.assertIsNone(storage.get(State, 45))
         self.assertEqual(s.name, storage.get(State, s.id).name)
-        self.assertIsNot(s, storage.get(State, s.id + 'ssa'))
-        self.assertIsNone(storage.get(State, s.id + 'aas'))
+        self.assertIsNot(s, storage.get(State, s.id + 'op'))
+        self.assertIsNone(storage.get(State, s.id + 'op'))
         self.assertIsNone(storage.get(None, s.id))
         self.assertIsNone(storage.get(int, s.id))
         with self.assertRaises(TypeError):
