@@ -66,11 +66,9 @@ class FileStorage:
         """gets an object of a class using its id"""
         if cls is not None:
             res = list(
-                filter(
-                    lambda x: type(x) is cls and x.id == id,
+                filter(lambda x: type(x) is cls and x.id == id,
                     self.__objects.values()
-                )
-            )
+                ))
             if res:
                 return res[0]
         return None
