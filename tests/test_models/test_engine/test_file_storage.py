@@ -118,11 +118,11 @@ class TestFileStorage(unittest.TestCase):
     def test_get(self):
         """test that get returns an object of a given class by id."""
         storage = models.storage
-        
+
         s = State(name='Alabama')
-        
+
         s.save()
-        
+
         self.assertEqual(s.id, storage.get(State, s.id).id)
         self.assertIsNone(storage.get(State, 45))
         self.assertEqual(s.name, storage.get(State, s.id).name)
