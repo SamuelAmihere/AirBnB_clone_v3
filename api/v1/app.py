@@ -33,15 +33,15 @@ CORS(app, resources={'/*': {'origins': "*"}})
 @app.errorhandler(404)
 def handle_404(e):
     """andles 404 errors"""
-    err_code = e.__str__().split()[0]
-    desc = e.description
-    return make_response(jsonify({'error': desc}), err_code)
+    message = e.description if isinstance(e, Exception) and \
+            hasattr(e, 'description') else 'Bad request'
+    return jsonify(error=msg), 400
 
 
 @app.errorhandler(404)
-def error_404(err):
+def error_404(error):
     """Handles 404 HTTP error code"""
-    return jsonify(err='Not found'), 404
+    return jsonify(error='Not found'), 404
 
 
 @app.teardown_appcontext
