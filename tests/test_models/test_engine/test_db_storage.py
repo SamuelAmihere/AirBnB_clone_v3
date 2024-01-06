@@ -85,7 +85,9 @@ class TestDBStorage(unittest.TestCase):
         """Test that save properly saves objects to file.json"""
 
     def test_get(self):
-        """testing for get on object of a returned class by id"""
+        """
+        testing for get on object of a returned class by id
+        """
         storage = models.storage
         s = State(name='Alabama')
         s.save()
@@ -106,7 +108,9 @@ class TestDBStorage(unittest.TestCase):
             storage.get(State)
 
     def test_count(self):
-        """test that count returns the number of objects of a given class."""
+        """
+        test that count returns the number of objects of a given class.
+        """
         storage = models.storage
         self.assertIs(type(storage.count(State)), int)
         self.assertIs(type(storage.count(None)), int)
