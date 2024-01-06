@@ -122,7 +122,7 @@ class TestFileStorage(unittest.TestCase):
         s = State(name='Alabama')
         s.save()
 
-        self.assertIsNone(storage.get(State, 45))
+        self.assertIsNone(storage.get(State, 69))
         self.assertIsNone(storage.get(int, s.id))
         self.assertEqual(s.id, storage.get(State, s.id).id)
         self.assertEqual(s.name, storage.get(State, s.id).name)
