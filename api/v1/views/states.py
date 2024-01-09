@@ -5,10 +5,8 @@ from werkzeug.exceptions import NotFound, MethodNotAllowed, BadRequest
 from api.v1.views import app_views
 from models.state import State
 from models import storage
-from .commons import manipulate, fetch_data, fetch_process
-
-
-allows = ['GET', 'POST', 'DELETE', 'PUT']
+from .commons import (manipulate, fetch_data, fetch_process,
+                      reach_endpoint, allows)
 
 
 # Endpoints
@@ -35,6 +33,20 @@ def remove_state(state_id=None):
     raise NotFound()
 
 
+def add_state(state_id=None):
+    """Posting a new state.
+    """
+    msg = ['Not a JSON', 'Missing name']
+    post = request.get_json()
+    if type(post) is not dict:
+        raise BadRequest(description=msg[0])
+    if 'name' not in post:
+        raise BadRequest(description=msg[1])
+    new_st = State(**post)
+    new_st.save()
+    return jsonify(new_st.to_dict()), 201
+
+
 def update_state(state_id=None):
     """"Updates state db using given id.
     """
@@ -53,20 +65,6 @@ def update_state(state_id=None):
     raise NotFound()
 
 
-def add_state(state_id=None):
-    """Posting a new state.
-    """
-    msg = ['Not a JSON', 'Missing name']
-    post = request.get_json()
-    if type(post) is not dict:
-        raise BadRequest(description=msg[0])
-    if 'name' not in post:
-        raise BadRequest(description=msg[1])
-    new_st = State(**post)
-    new_st.save()
-    return jsonify(new_st.to_dict()), 201
-
-
 @app_views.route('/states', methods=allows)
 @app_views.route('/states/<state_id>', methods=allows)
 def states_handler(state_id=None):
@@ -74,10 +72,8 @@ def states_handler(state_id=None):
     '''
     rm = request.method
 
-    methods_endpt = {allows[n]: i for n, i in enumerate([get_states,
-                                                        add_state,
-                                                        remove_state,
-                                                        update_state])}
+    methods_endpt = reach_endpoint([get_states, add_state,
+                                   remove_state, update_state])
     if rm in allows:
         return methods_endpt[rm](state_id)
     else:
