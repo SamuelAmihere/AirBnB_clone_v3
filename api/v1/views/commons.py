@@ -46,6 +46,7 @@ def clean_field(props, obj):
             del obj[i]
     return obj
 
+
 def delete_obj(obj):
     """removes objects from db"""
     if obj:
