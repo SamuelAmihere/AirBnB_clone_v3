@@ -36,3 +36,18 @@ def fetch_process(obj, fn, id_):
 def reach_endpoint(endpoints):
     """Creates a dictionary of methods and their endpoint functions"""
     return {allows[n]: i for n, i in enumerate(endpoints)}
+
+
+def clean_field(props, obj):
+    """deletes object's property"""
+    obj = obj.to_dict()
+    for i in props:
+        if i in obj:
+            del obj[i]
+    return obj
+
+def delete_obj(obj):
+    """removes objects from db"""
+    if obj:
+        storage.delete(obj)
+        storage.save()

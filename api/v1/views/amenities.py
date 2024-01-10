@@ -71,10 +71,8 @@ def update_amenity(amenity_id=None):
 def handle_amenities(amenity_id=None):
     """Handles amenities endpoint.
     """
-    am_handlers = reach_endpoint([get_amenities,
-                                 add_amenity,
-                                 delete_amenity,
-                                 update_amenity])
+    am_handlers = reach_endpoint([get_amenities, add_amenity,
+                                 delete_amenity, update_amenity])
 
     rm = request.method
     if rm in am_handlers:
