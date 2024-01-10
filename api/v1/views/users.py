@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""API Views: Users
+"""API Views: Creates api views for Users.
 """
 
 from models import storage
