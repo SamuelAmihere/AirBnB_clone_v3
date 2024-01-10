@@ -5,7 +5,7 @@ from models.user import User
 from api.v1.views import app_views
 from flask import jsonify, request
 from werkzeug.exceptions import NotFound, BadRequest
-from .commons import (fetch_data, fetch_data_id, delete_obj
+from .commons import (fetch_data, fetch_data_id, delete_obj,
                       reach_endpoint, allows, clean_field)
 
 
