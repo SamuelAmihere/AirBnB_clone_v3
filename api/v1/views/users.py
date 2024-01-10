@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""API Views: Creates api views for Users.
-"""
-
+"""API Views: Creates api views for Users."""
 from models import storage
 from models.user import User
 from api.v1.views import app_views
@@ -11,12 +9,14 @@ from .commons import (fetch_data, fetch_data_id, delete_obj,
                       reach_endpoint, allows, clean_field)
 
 
+# vars
 info = ['email', 'password', 'first_name', 'last_name']
 columns = ('id', info[0], 'created_at', 'updated_at')
 err = ['Not a JSON', 'Missing email', 'Missing password']
 choices = ['places', 'reviews']
 
 
+# Endpoints
 def add_user(user_id=None):
     """ Adds a new user to the db."""
 
