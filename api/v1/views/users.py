@@ -6,6 +6,7 @@ from models.user import User
 from api.v1.views import app_views
 from flask import jsonify, request
 from werkzeug.exceptions import NotFound, BadRequest
+from flasgger.utils import swag_from
 from .commons import (fetch_data, fetch_data_id, delete_obj,
                       reach_endpoint, allows, clean_field)
 
@@ -89,6 +90,7 @@ def get_users(user_id=None):
 
 @app_views.route('/users', methods=allows)
 @app_views.route('/users/<user_id>', methods=allows)
+@swag_from('swagger_yaml/users_no_id.yml', methods=['GET', 'POST'])
 def users_handler(user_id=None):
     '''Handles users endpoints.
     '''
