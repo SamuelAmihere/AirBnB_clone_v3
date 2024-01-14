@@ -4,6 +4,8 @@
 from flask_cors import CORS
 from flask import Flask, jsonify, make_response, render_template
 from werkzeug.exceptions import HTTPException
+from flasgger import Swagger
+from flasgger.utils import swag_from
 import os
 from models import storage
 from api.v1.views import app_views
@@ -29,6 +31,12 @@ app.register_blueprint(app_views)
 # Ensuring cross-origin resource sharing among components
 CORS(app, resources={'/*': {'origins': host}})
 
+app.config['SWAGGER'] = {
+    'title': 'AirBnB clone Restful API',
+    'uiversion': 3
+}
+
+Swagger(app)
 
 # page rendering
 @app.errorhandler(404)
