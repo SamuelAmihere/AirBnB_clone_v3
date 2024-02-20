@@ -1,13 +1,12 @@
 #!/usr/bin/python3
 '''
-Contains the users view for the API.
+objects that handle all default RestFul API actions for Users.
 '''
-from flask import jsonify, request
-from werkzeug.exceptions import NotFound, BadRequest
-
+from flask import abort, jsonify, make_response, request
 from api.v1.views import app_views
-from models import storage
 from models.user import User
+from models import storage
+from flasgger.utils import swag_from
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
