@@ -5,7 +5,11 @@ Flask route that returns json status response
 from api.v1.views import app_views
 from flask import abort, jsonify, request
 from flasgger.utils import swag_from
-from models import storage, CNC
+from models import storage
+from models.city import City
+from models.place import Place
+from models.state import State
+from models.user import User
 from os import environ
 STORAGE_TYPE = environ.get('HBNB_TYPE_STORAGE')
 
